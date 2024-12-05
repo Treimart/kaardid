@@ -4,7 +4,9 @@
         <title>Pildi leht</title>
         <script>
             function saada() {
-                vastus.innerText = valik1.value
+                vastus.innerText = valik1.value;
+                let aadress = "https://script.google.com/macros/s/AKfycbyWdbkVMew7_FqQnyQXFh7u6PKzqEeNwthnRnHhuDK-MI9nbY5jcbSWy2o7SWAvi2NK/exec?hinnang=" + valik1.value;
+                fetch(aadress).then(d => d.text()).then(function(t){vastus.innerText = t});
             }
         </script>
     </head>
