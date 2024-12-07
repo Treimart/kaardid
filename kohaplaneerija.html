@@ -5,17 +5,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" />
         <style>
-            body {padding: 0; margin: 0; }
-            html, body { height: 100%; width: 100%;}
-            #kaardikiht {float:bottom; width:100%; height: 100%;}
-            #pealkiri {position: fixed; top: 0; right: 0; z-index: 2;}
+            body {max-width: 720px; margin: 2.5em auto;}
+            #kaardikiht {height: 480px; width: 100%; margin: 2.5em auto;}
+            input {width: 100%};
         </style>
         <script>
             var kaart, abikiht;
             var hypik;
 
             function algus(){
-                kaart = L.map('kaardikiht').setView([59.441059, 24.595989], 15);
+                kaart = L.map('kaardikiht').setView([59.437001, 24.753691], 13);
                 new L.TileLayer(
                     'https://tiles.maaamet.ee/tm/tms/1.0.0/hybriid@GMC/{z}/{x}/{y}.png&ASUTUS=TLU&ERIALA=DIGIHUMANITAARIA',
                     {
@@ -48,17 +47,20 @@
 
             function vajutus(e) {
                 let pealkiri = document.getElementById("pealkiri").value;
-                hypik.setLatLng(e.latlng).
-                    setContent("Vajutasid "+e.latlng.toString()).openOn(kaart);
-                fetch(
-                    "https://script.google.com/macros/s/AKfycbzkTI10bu1ixAovHR4P7GvJVJ8nkOdMbM3-VVIHE0IMCdEqLaut7F2DIXgqZ3tLdlW0qg/exec?pealkiri=" + pealkiri + "&laiuskraad=" + e.latlng.lat + "&pikkuskraad=" + e.latlng.lng
-                ).then(d => d.text()).then(console.log);
+                if (pealkiri) {
+                    hypik.setLatLng(e.latlng).
+                        setContent("Vajutasid "+e.latlng.toString()).openOn(kaart);
+                    fetch(
+                        "https://script.google.com/macros/s/AKfycbzkTI10bu1ixAovHR4P7GvJVJ8nkOdMbM3-VVIHE0IMCdEqLaut7F2DIXgqZ3tLdlW0qg/exec?pealkiri=" + pealkiri + "&laiuskraad=" + e.latlng.lat + "&pikkuskraad=" + e.latlng.lng
+                    ).then(d => d.text()).then(console.log);
+                }
             }
         </script>
     </head>
     <body onload="algus()">
-        <div id="kaardikiht" name="kaardikiht">
-            <input type="text" id="pealkiri" name="pealkiri">
-        </div>
+        <div id="kaardikiht" name="kaardikiht"></div>
+        <h2>Lisage sündmus</h2>
+        <label for="pealkiri">Teie kommentaar:</label>
+        <input type="text" id="pealkiri" name="pealkiri">
     </body>
 </html>
