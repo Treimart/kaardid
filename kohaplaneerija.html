@@ -8,6 +8,7 @@
             body {padding: 0; margin: 0; }
             html, body { height: 100%; width: 100%;}
             #kaardikiht {float:bottom; width:100%; height: 100%;}
+            #pealkiri {position: fixed; top: 0; right: 0; z-index: 2;}
         </style>
         <script>
             var kaart, abikiht;
@@ -56,7 +57,7 @@
         </script>
     </head>
     <body onload="algus()">
-        <div id="kohainfo" name="kohainfo">
+        <div id="kaardikiht" name="kaardikiht">
             <input type="text" id="pealkiri" name="pealkiri">
         </div>
     </body>
